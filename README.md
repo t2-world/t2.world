@@ -1,1 +1,1 @@
-# t2.world
+# t2.world Whitepaper
