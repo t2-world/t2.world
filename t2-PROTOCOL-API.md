@@ -11,38 +11,58 @@ The protocols have two categories of APIs: one with public accessibility, one wi
 These two set of APIs does NOT represents exactly the counter part of Blockchain APIs for Read & Write.
 The sets of API requires user token in header, representing any call that needs to identify the caller identity. This does not imply the API has the capability to perform a WRITE onto the blockchain.
 
-## Core Flow
 ### Public APIs
 You call the following APIs without proceeding login call
-### World
-#### GET ​/v1​/world​/stats
-#### GET /v1​/world​/stats-events
-#### PUT ​/v1​/world​/subscribe
-#### GET ​/v1​/world​/subscribers
-#### GET ​/v1​/world​/users
-### Content
-#### GET ​/v1​/contents​/{contentId}
-#### GET ​/v1​/contents​/{contentId}​/pages
-#### GET ​/v1​/contents​/{contentId}​/pages​/{pageId}​/events
-### Items
-#### GET ​/v1​/items​/search
-#### GET ​/v1​/items​/{itemId}
-#### GET ​/v1​/items​/{itemId}​/versions
-### User
-#### GET ​/v1​/users​/{userId}
-#### GET ​/v1​/users​/{userId}​/stats-events
-#### GET ​/v1​/users​/{userId}​/events
-#### GET ​/v1​/users​/{userId}​/items​/{itemId}​/contents​/{contentId}​/pages​/{pageId}​/stats
-### Territories
-#### GET ​/v1​/territories​/search
-#### GET ​/v1​/territories​/{territoryId}
-#### GET ​/v1​/territories​/{territoryId}​/spaces
-#### GET ​/v1​/territories​/{territoryId}​/spaces​/{spaceId}
-#### GET ​/v1​/territories​/{territoryId}​/citizens​/search
+#### World
+
+| URL                    | Method | Parameters |
+| ---------------------- | ------ | ---------- |
+| /v1/world/stats        | GET    |            |
+| /v1/world/stats-events | GET    |            |
+| /v1/world/subscribe    | PUT    |            |
+| /v1/world/subscribers  | GET    |            |
+| /v1/world/users        | GET    |            |
+
+#### Contents
+
+| URL                                            | Method | Parameters |
+| ---------------------------------------------- | ------ | ---------- |
+| /v1/contents/{contentId}                       | GET    |            |
+| /v1/contents/{contentId}/pages                 | GET    |            |
+| /v1/contents/{contentId}/pages/{pageId}/events | GET    |            |
+
+#### Items
+
+| URL                         | Method | Parameters |
+| --------------------------- | ------ | ---------- |
+| /v1/items/search            | GET    |            |
+| /v1/items/{itemId}          | GET    |            |
+| /v1/items/{itemId}/versions | GET    |            |
+
+#### Users
+
+| URL                                                          | Method | Parameters |
+| ------------------------------------------------------------ | ------ | ---------- |
+| /v1/users/{userId}                                           | GET    |            |
+| /v1/users/{userId}/stats-events                              | GET    |            |
+| /v1/users/{userId}/events                                    | GET    |            |
+| /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/stats | GET    |            |
+
+#### Territories
+
+| URL                                            | Method | Parameters |
+| ---------------------------------------------- | ------ | ---------- |
+| /v1/territories/search                         | GET    |            |
+| /v1/territories/{territoryId}                  | GET    |            |
+| /v1/territories/{territoryId}/spaces           | GET    |            |
+| /v1/territories/{territoryId}/spaces/{spaceId} | GET    |            |
+| /v1/territories/{territoryId}/citizens/search  | GET    |            |
 
 ### Authenticated APIs
 ### Login As First Call
-#### POST /v1​/auth​/login
+| URL            | Method | Parameters |
+| -------------- | ------ | ---------- |
+| /v1/auth/login | POST   |            |
 
 ### Authenticated APIs
 The following APIs requires header being set to
@@ -51,29 +71,41 @@ Authorization: JWT <token retrieved from login call>
 ```
 
 ### Users
-#### GET ​/v1​/users​/my-passport
-#### PATCH /v1​/users​/my-passport
-#### GET ​/v1​/users​/my-footsteps
-#### GET ​/v1​/users​/my-items
-#### GET ​/v1​/users​/my-webpaper
-#### PUT ​/v1​/users​/{userId}​/items​/{itemId}​/contents​/{contentId}​/pages​/{pageId}​/events​/start
-#### PUT ​/v1​/users​/{userId}​/items​/{itemId}​/contents​/{contentId}​/pages​/{pageId}​/events​/stop
-#### PUT ​/v1​/users​/{userId}​/initialize
-#### PUT ​/v1​/users​/{userId}​/items​/{itemId}​/contents​/{contentId}​/pages​/{pageId}​/sync-stats
-#### PUT ​/v1​/users​/{userId}​/sync-stats
+
+| URL                                                          | Method | Parameters |
+| ------------------------------------------------------------ | ------ | ---------- |
+| /v1/users/my-passport                                        | GET    |            |
+| /v1/users/my-passport                                        | PATCH  |            |
+| /v1/users/my-footsteps                                       | GET    |            |
+| /v1/users/my-items                                           | GET    |            |
+| /v1/users/my-webpaper                                        | GET    |            |
+| /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/events/start | PUT    |            |
+| /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/events/stop | PUT    |            |
+| /v1/users/{userId}/initialize                                | PUT    |            |
+| /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/sync-stats | PUT    |            |
+| /v1/users/{userId}/sync-stats                                | PUT    |            |
 
 ### Contents
-#### POST ​/v1​/contents
-#### PUT ​/v1​/contents​/import
-#### POST ​/v1​/contents​/upload
+
+| URL                 | Method | Parameters |
+| ------------------- | ------ | ---------- |
+| /v1/contents        | POST   |            |
+| /v1/contents/import | PUT    |            |
+| /v1/contents/upload | POST   |            |
 
 ### Items
-#### POST ​/v1​/items
-#### POST ​/v1​/items​/versions
-#### PUT ​/v1​/items​/versions​/{versionId}​/review-action
+
+| URL                                          | Method | Parameters |
+| -------------------------------------------- | ------ | ---------- |
+| /v1/items                                    | POST   |            |
+| /v1/items/versions                           | POST   |            |
+| /v1/items/versions/{versionId}/review-action | PUT    |            |
 
 ### Territories
-#### POST ​/v1​/territories
+
+| URL             | Method | Parameters |
+| --------------- | ------ | ---------- |
+| /v1/territories | POST   |            |
 
 
 ## API links
@@ -82,9 +114,6 @@ Authorization: JWT <token retrieved from login call>
 # t2 Smart Contracts
 ## Introduction
 There are six contracts for T2 World. They are TXT Contract, Passport Contract, Governance Contract, Territory Contract, Item Contract and T2 World Contract. The first three contract were deployed for the tokens(TXT, Passport, Governanace) in T2 World. The Territory Contract is used to record  the details of the territories in T2 World. the Item Contract is used to record the details of the items in T2 World and the main business logic. The T2 World contract is a platform for managing other contracts.
-
-我们总共为T2 World部署了六个合约，分别是TXT Contract、Passport Contract、Governance Contract、Territory Contract、Item Contract、T2 World Contract。
-前三个合约是为了部署T2 World中的tokens：TXT、Passport、Governance Token。Territory Contract和Item Contract是分别用来记录Territory和Item详细信息以及业务逻辑的合约。T2 World是用来集中调用管理其它合约的总合约。
 
 ## TXT Contract
 This contract is for the TXT token. It's a token of ERC20 protocol.
@@ -154,7 +183,7 @@ this method add a new territory with the given parameters.
     * a bool value(true or false).
 
 **decription**
- 
+
 this method returns a bool value whether there is a territory of the given ID.
 
 ### getTerritory
@@ -168,7 +197,7 @@ this method returns a bool value whether there is a territory of the given ID.
 
 * returns
     * details of a territory.
- 
+
 **description**
 
 this method returns the details of a territory of the given ID.
@@ -235,7 +264,7 @@ this method update the title and content hash key of the item with the given ID.
 **description**
 
 this method returns details of a certain item with the given ID.
- 
+
 ### getItemList
 
 **function head**
@@ -266,7 +295,7 @@ this method returns a list of all items.
 this method returns a list of all items under the given territory.
         
 ### votingItem
-       
+
 **function head**
 
     function votingItem(address sender, uint256 itemId, uint256 votingToken) public;
@@ -279,7 +308,7 @@ this method returns a list of all items under the given territory.
 **description**
 
 this method votes on a given item according to the specified number of votes.
- 
+
 ### getVotingInfo
 
 **function head**
@@ -357,5 +386,5 @@ get the receive information of all the stakeholder.
 
 this method withdraw the token to the sender(user).
 
-        
+​        
 
