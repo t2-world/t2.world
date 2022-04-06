@@ -15,7 +15,7 @@ The sets of API requires user token in header, representing any call that needs 
 You call the following APIs without proceeding login call
 #### World
 
-| URL                    | Method | Parameters |
+| URL                    | METHOD | PARAMETERS |
 | ---------------------- | ------ | ---------- |
 | /v1/world/stats        | GET    |            |
 | /v1/world/stats-events | GET    |            |
@@ -25,7 +25,7 @@ You call the following APIs without proceeding login call
 
 #### Contents
 
-| URL                                            | Method | Parameters |
+| URL                                            | METHOD | PARAMETERS |
 | ---------------------------------------------- | ------ | ---------- |
 | /v1/contents/{contentId}                       | GET    |            |
 | /v1/contents/{contentId}/pages                 | GET    |            |
@@ -33,7 +33,7 @@ You call the following APIs without proceeding login call
 
 #### Items
 
-| URL                         | Method | Parameters |
+| URL                         | METHOD | PARAMETERS |
 | --------------------------- | ------ | ---------- |
 | /v1/items/search            | GET    |            |
 | /v1/items/{itemId}          | GET    |            |
@@ -41,7 +41,7 @@ You call the following APIs without proceeding login call
 
 #### Users
 
-| URL                                                          | Method | Parameters |
+| URL                                                          | METHOD | PARAMETERS |
 | ------------------------------------------------------------ | ------ | ---------- |
 | /v1/users/{userId}                                           | GET    |            |
 | /v1/users/{userId}/stats-events                              | GET    |            |
@@ -50,7 +50,7 @@ You call the following APIs without proceeding login call
 
 #### Territories
 
-| URL                                            | Method | Parameters |
+| URL                                            | METHOD | PARAMETERS |
 | ---------------------------------------------- | ------ | ---------- |
 | /v1/territories/search                         | GET    |            |
 | /v1/territories/{territoryId}                  | GET    |            |
@@ -59,20 +59,26 @@ You call the following APIs without proceeding login call
 | /v1/territories/{territoryId}/citizens/search  | GET    |            |
 
 ### Authenticated APIs
-### Login As First Call
-| URL            | Method | Parameters                                               | Return              |
+### Login
+| URL            | METHOD | PARAMETERS                                               | RETURNS             |
 | -------------- | ------ | -------------------------------------------------------- | ------------------- |
 | /v1/auth/login | POST   | {"UserId": "0xe120a1c90a813796425a2e9ef36f692f92d17073"} | {"Token":"abcdefg"} |
 
 ### Authenticated APIs
-The following APIs requires header being set to
-```
-Authorization: JWT <token retrieved from login call>
-```
+The authenticated APIs requires header being set to following:
+
+**Headers**
+
+| KEY           | VALUE                                        |
+| ------------- | -------------------------------------------- |
+| Authorization | JWT <Token value returned in /v1/auth/login> |
+| Content-Type  | application/json                             |
+
+
 
 ### Users
 
-| URL                                                          | Method | Parameters |
+| URL                                                          | METHOD | PARAMETERS |
 | ------------------------------------------------------------ | ------ | ---------- |
 | /v1/users/my-passport                                        | GET    |            |
 | /v1/users/my-passport                                        | PATCH  |            |
@@ -87,7 +93,7 @@ Authorization: JWT <token retrieved from login call>
 
 ### Contents
 
-| URL                 | Method | Parameters |
+| URL                 | METHOD | PARAMETERS |
 | ------------------- | ------ | ---------- |
 | /v1/contents        | POST   |            |
 | /v1/contents/import | PUT    |            |
@@ -95,7 +101,7 @@ Authorization: JWT <token retrieved from login call>
 
 ### Items
 
-| URL                                          | Method | Parameters |
+| URL                                          | METHOD | PARAMETERS |
 | -------------------------------------------- | ------ | ---------- |
 | /v1/items                                    | POST   |            |
 | /v1/items/versions                           | POST   |            |
@@ -103,7 +109,7 @@ Authorization: JWT <token retrieved from login call>
 
 ### Territories
 
-| URL             | Method | Parameters |
+| URL             | METHOD | PARAMETERS |
 | --------------- | ------ | ---------- |
 | /v1/territories | POST   |            |
 
@@ -130,7 +136,7 @@ This contract is for passport token. It's a token of ERC721 protocol.
 
     function createPassport(address sender, string memory title, string memory detail, uint reputation) public;
 
-* parameters
+* PARAMETERS
     * sender: wallet address of the creator.
     * title: title of the new passport.
     * detail: detail of the new passport.
@@ -138,7 +144,7 @@ This contract is for passport token. It's a token of ERC721 protocol.
 
 **description**
 
-this method add a new passport with the given parameters.
+this METHOD add a new passport with the given PARAMETERS.
 
 ### getPassports
 
@@ -151,7 +157,7 @@ this method add a new passport with the given parameters.
 
 **description**
 
-this method returns a list of all passports.
+this METHOD returns a list of all passports.
 
 ## Territory Contract
 This contract is for territories in T2 World.
@@ -168,7 +174,7 @@ This contract is for territories in T2 World.
 
 **description**
 
-this method add a new territory with the given parameters.
+this METHOD add a new territory with the given PARAMETERS.
 
 ### hasTerrtory
 
@@ -176,7 +182,7 @@ this method add a new territory with the given parameters.
         
     function hasTerrtory(uint id) view public returns(bool); 
 
-* parameters
+* PARAMETERS
     * id: ID of a certain territory.
 
 * returns
@@ -184,7 +190,7 @@ this method add a new territory with the given parameters.
 
 **decription**
 
-this method returns a bool value whether there is a territory of the given ID.
+this METHOD returns a bool value whether there is a territory of the given ID.
 
 ### getTerritory
 
@@ -192,7 +198,7 @@ this method returns a bool value whether there is a territory of the given ID.
     
     function getTerritory(uint id) view public returns(Territory memory);
 
-* parameters
+* PARAMETERS
     * id: ID of a certain territory.
 
 * returns
@@ -200,7 +206,7 @@ this method returns a bool value whether there is a territory of the given ID.
 
 **description**
 
-this method returns the details of a territory of the given ID.
+this METHOD returns the details of a territory of the given ID.
 
 ### getTerritoryList
 
@@ -213,7 +219,7 @@ this method returns the details of a territory of the given ID.
 
 **description**
 
-this method returns a list of all territories.
+this METHOD returns a list of all territories.
 
 ## Item Contract
 This contract is for items in T2 World.
@@ -224,7 +230,7 @@ This contract is for items in T2 World.
 
      function createItem(uint256 territory, string memory title, address author, string memory hh) public;
 
-* parameters
+* PARAMETERS
     * territory: ID of a certain territory.
     * title: title of the new item.
     * author: wallet address of the creator.
@@ -232,7 +238,7 @@ This contract is for items in T2 World.
 
 **description**
 
-this method add a new item with the given parameters.
+this METHOD add a new item with the given PARAMETERS.
 
 ### updateItem
 
@@ -240,14 +246,14 @@ this method add a new item with the given parameters.
 
     function updateItem(uint256 id, string memory title, string memory hh) public;
 
-* parameters
+* PARAMETERS
     * id: ID of a certain item.
     * title: new title of the item.
     * hh: new content hash key of the item. 
 
 **description**
 
-this method update the title and content hash key of the item with the given ID.
+this METHOD update the title and content hash key of the item with the given ID.
 
 ### getItem
 
@@ -255,7 +261,7 @@ this method update the title and content hash key of the item with the given ID.
 
    function getItem(uint256 id) view public returns(Item memory);
 
-* parameters
+* PARAMETERS
     * id: ID of a certain item.
 
 * returns
@@ -263,7 +269,7 @@ this method update the title and content hash key of the item with the given ID.
 
 **description**
 
-this method returns details of a certain item with the given ID.
+this METHOD returns details of a certain item with the given ID.
 
 ### getItemList
 
@@ -276,7 +282,7 @@ this method returns details of a certain item with the given ID.
 
 **description**
 
-this method returns a list of all items.
+this METHOD returns a list of all items.
 
 ### getItemListByTerritory
 
@@ -284,7 +290,7 @@ this method returns a list of all items.
 
     function getItemListByTerritory(uint territory) view public returns(Item[] memory);
 
-* parameters 
+* PARAMETERS 
     * territory: ID of a certain territory.
 
 * returns
@@ -292,7 +298,7 @@ this method returns a list of all items.
 
 **description**
 
-this method returns a list of all items under the given territory.
+this METHOD returns a list of all items under the given territory.
         
 ### votingItem
 
@@ -300,14 +306,14 @@ this method returns a list of all items under the given territory.
 
     function votingItem(address sender, uint256 itemId, uint256 votingToken) public;
 
-* parameters
+* PARAMETERS
     * sender: wallet address of the user.
     * itemId: ID of a certain item.
     * votingToken token number of votes.
 
 **description**
 
-this method votes on a given item according to the specified number of votes.
+this METHOD votes on a given item according to the specified number of votes.
 
 ### getVotingInfo
 
@@ -320,7 +326,7 @@ this method votes on a given item according to the specified number of votes.
 
 **description**
 
-this method returns a list containing all item voting information.
+this METHOD returns a list containing all item voting information.
 
 ### stakeItem
 
@@ -328,14 +334,14 @@ this method returns a list containing all item voting information.
 
     function stakeItem(address sender, uint256 itemId, uint256 stakeToken) public;
 
-* parameters
+* PARAMETERS
     * sender: wallet address of the user.
     * itemId: ID of a certain item.
     * stakeToken: token number of the stake.
 
 **description**
 
-this method stake to a item with the given ID.
+this METHOD stake to a item with the given ID.
 
 ### getStakeInfo
 
@@ -348,7 +354,7 @@ this method stake to a item with the given ID.
 
 **description**
 
-this method return a list containing all item stake information.
+this METHOD return a list containing all item stake information.
 
 ### prepareReceiveTokens
 
@@ -358,7 +364,7 @@ this method return a list containing all item stake information.
 
 **description**
 
-this method calculate the tokens that every stakeholders should get.
+this METHOD calculate the tokens that every stakeholders should get.
 
 ### getReceiveInfo
 
@@ -379,7 +385,7 @@ get the receive information of all the stakeholder.
 
     function withdraw(address sender) public;
 
-* parameters
+* PARAMETERS
     * sender: wallet address of a user.
 
 **description**
