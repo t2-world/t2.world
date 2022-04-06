@@ -95,13 +95,18 @@ This contract is for governance token. It's a token of ERC20 protocol
 ## Passport Contract
 This contract is for passport token. It's a token of ERC721 protocol.
 
+| method  |  |
+|-------- |---|
+| createPassport | create a new passport |
+| getPassports| get a certain passport |
+
 ### createPassport
 
 **function head**
 
     function createPassport(address sender, string memory title, string memory detail, uint reputation) public;
 
-* PARAMETERS
+* parameters 
     * sender: wallet address of the creator.
     * title: title of the new passport.
     * detail: detail of the new passport.
@@ -109,7 +114,7 @@ This contract is for passport token. It's a token of ERC721 protocol.
 
 **description**
 
-this METHOD add a new passport with the given PARAMETERS.
+this method add a new passport with the given parameters.
 
 ### getPassports
 
@@ -122,10 +127,17 @@ this METHOD add a new passport with the given PARAMETERS.
 
 **description**
 
-this METHOD returns a list of all passports.
+this method returns a list of all passports.
 
 ## Territory Contract
 This contract is for territories in T2 World.
+
+| METHOD | INTRODUCTION |
+|-------- |---|
+| createTerritory | create a new territory |
+| hasTerritory | if there has a certain territory with the given ID |
+| getTerritory | get a certain territory |
+| getTerritoryList | get a list of all territories |
 
 ### createTerritory
 
@@ -139,7 +151,7 @@ This contract is for territories in T2 World.
 
 **description**
 
-this METHOD add a new territory with the given PARAMETERS.
+this method add a new territory with the given parameters.
 
 ### hasTerrtory
 
@@ -147,7 +159,7 @@ this METHOD add a new territory with the given PARAMETERS.
         
     function hasTerrtory(uint id) view public returns(bool); 
 
-* PARAMETERS
+* parameters 
     * id: ID of a certain territory.
 
 * returns
@@ -155,7 +167,7 @@ this METHOD add a new territory with the given PARAMETERS.
 
 **decription**
 
-this METHOD returns a bool value whether there is a territory of the given ID.
+this method returns a bool value whether there is a territory of the given ID.
 
 ### getTerritory
 
@@ -163,7 +175,7 @@ this METHOD returns a bool value whether there is a territory of the given ID.
     
     function getTerritory(uint id) view public returns(Territory memory);
 
-* PARAMETERS
+* parameters
     * id: ID of a certain territory.
 
 * returns
@@ -171,7 +183,7 @@ this METHOD returns a bool value whether there is a territory of the given ID.
 
 **description**
 
-this METHOD returns the details of a territory of the given ID.
+this method returns the details of a territory of the given ID.
 
 ### getTerritoryList
 
@@ -184,10 +196,25 @@ this METHOD returns the details of a territory of the given ID.
 
 **description**
 
-this METHOD returns a list of all territories.
+this method returns a list of all territories.
 
 ## Item Contract
 This contract is for items in T2 World.
+
+| METHOD | INTRODUCTION |
+|-------- |---|
+| createItem | create a new item |
+| updateItem | update a certain item |
+| getItem | get a certain item |
+| getItemList | get a list of all items |
+| getItemListByTerritory | get a list of items which after the given terrtiroy |
+| votingItem | voting to a certain item |
+| getVotingInfo | get the voting information of all items |
+| stakeItem | stake to a certain item |
+| getStakeInfo | get stake information of all items |
+| prepareReceiveTokens | calculate the tokens than every stakeholders should get |
+| getReceiveInfo | get the receive information of all stakeholders |
+| withdraw | withdraw the token to the caller |
 
 ### createItem
 
@@ -195,7 +222,7 @@ This contract is for items in T2 World.
 
      function createItem(uint256 territory, string memory title, address author, string memory hh) public;
 
-* PARAMETERS
+* parameters
     * territory: ID of a certain territory.
     * title: title of the new item.
     * author: wallet address of the creator.
@@ -203,7 +230,7 @@ This contract is for items in T2 World.
 
 **description**
 
-this METHOD add a new item with the given PARAMETERS.
+this method add a new item with the given parameters.
 
 ### updateItem
 
@@ -211,14 +238,14 @@ this METHOD add a new item with the given PARAMETERS.
 
     function updateItem(uint256 id, string memory title, string memory hh) public;
 
-* PARAMETERS
+* parameters
     * id: ID of a certain item.
     * title: new title of the item.
     * hh: new content hash key of the item. 
 
 **description**
 
-this METHOD update the title and content hash key of the item with the given ID.
+this method update the title and content hash key of the item with the given ID.
 
 ### getItem
 
@@ -226,7 +253,7 @@ this METHOD update the title and content hash key of the item with the given ID.
 
    function getItem(uint256 id) view public returns(Item memory);
 
-* PARAMETERS
+* parameters
     * id: ID of a certain item.
 
 * returns
@@ -234,7 +261,7 @@ this METHOD update the title and content hash key of the item with the given ID.
 
 **description**
 
-this METHOD returns details of a certain item with the given ID.
+this method returns details of a certain item with the given ID.
 
 ### getItemList
 
@@ -247,7 +274,7 @@ this METHOD returns details of a certain item with the given ID.
 
 **description**
 
-this METHOD returns a list of all items.
+this method returns a list of all items.
 
 ### getItemListByTerritory
 
@@ -255,7 +282,7 @@ this METHOD returns a list of all items.
 
     function getItemListByTerritory(uint territory) view public returns(Item[] memory);
 
-* PARAMETERS 
+* parameters
     * territory: ID of a certain territory.
 
 * returns
@@ -263,7 +290,7 @@ this METHOD returns a list of all items.
 
 **description**
 
-this METHOD returns a list of all items under the given territory.
+this method returns a list of all items under the given territory.
         
 ### votingItem
 
@@ -271,14 +298,14 @@ this METHOD returns a list of all items under the given territory.
 
     function votingItem(address sender, uint256 itemId, uint256 votingToken) public;
 
-* PARAMETERS
+* parameters
     * sender: wallet address of the user.
     * itemId: ID of a certain item.
     * votingToken token number of votes.
 
 **description**
 
-this METHOD votes on a given item according to the specified number of votes.
+this method votes on a given item according to the specified number of votes.
 
 ### getVotingInfo
 
@@ -291,7 +318,7 @@ this METHOD votes on a given item according to the specified number of votes.
 
 **description**
 
-this METHOD returns a list containing all item voting information.
+this method returns a list containing all item voting information.
 
 ### stakeItem
 
@@ -299,14 +326,14 @@ this METHOD returns a list containing all item voting information.
 
     function stakeItem(address sender, uint256 itemId, uint256 stakeToken) public;
 
-* PARAMETERS
+* parameters
     * sender: wallet address of the user.
     * itemId: ID of a certain item.
     * stakeToken: token number of the stake.
 
 **description**
 
-this METHOD stake to a item with the given ID.
+this method stake to a item with the given ID.
 
 ### getStakeInfo
 
@@ -319,7 +346,7 @@ this METHOD stake to a item with the given ID.
 
 **description**
 
-this METHOD return a list containing all item stake information.
+this method return a list containing all item stake information.
 
 ### prepareReceiveTokens
 
@@ -329,7 +356,7 @@ this METHOD return a list containing all item stake information.
 
 **description**
 
-this METHOD calculate the tokens that every stakeholders should get.
+this method calculate the tokens that every stakeholders should get.
 
 ### getReceiveInfo
 
@@ -350,7 +377,7 @@ get the receive information of all the stakeholder.
 
     function withdraw(address sender) public;
 
-* PARAMETERS
+* parameters
     * sender: wallet address of a user.
 
 **description**
