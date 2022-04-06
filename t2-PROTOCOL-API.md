@@ -60,9 +60,9 @@ You call the following APIs without proceeding login call
 
 ### Authenticated APIs
 ### Login As First Call
-| URL            | Method | Parameters |
-| -------------- | ------ | ---------- |
-| /v1/auth/login | POST   |            |
+| URL            | Method | Parameters                                               | Return              |
+| -------------- | ------ | -------------------------------------------------------- | ------------------- |
+| /v1/auth/login | POST   | {"UserId": "0xe120a1c90a813796425a2e9ef36f692f92d17073"} | {"Token":"abcdefg"} |
 
 ### Authenticated APIs
 The following APIs requires header being set to
