@@ -13,56 +13,34 @@ The sets of API requires user token in header, representing any call that needs 
 
 ### Public APIs
 You call the following APIs without proceeding login call
-#### World
-
-| URL                    | METHOD | PARAMETERS |
-| ---------------------- | ------ | ---------- |
-| /v1/world/stats        | GET    |            |
-| /v1/world/stats-events | GET    |            |
-| /v1/world/subscribe    | PUT    |            |
-| /v1/world/subscribers  | GET    |            |
-| /v1/world/users        | GET    |            |
-
-#### Contents
-
-| URL                                            | METHOD | PARAMETERS |
-| ---------------------------------------------- | ------ | ---------- |
-| /v1/contents/{contentId}                       | GET    |            |
-| /v1/contents/{contentId}/pages                 | GET    |            |
-| /v1/contents/{contentId}/pages/{pageId}/events | GET    |            |
-
-#### Items
-
-| URL                         | METHOD | PARAMETERS |
-| --------------------------- | ------ | ---------- |
-| /v1/items/search            | GET    |            |
-| /v1/items/{itemId}          | GET    |            |
-| /v1/items/{itemId}/versions | GET    |            |
-
-#### Users
-
-| URL                                                          | METHOD | PARAMETERS |
-| ------------------------------------------------------------ | ------ | ---------- |
-| /v1/users/{userId}                                           | GET    |            |
-| /v1/users/{userId}/stats-events                              | GET    |            |
-| /v1/users/{userId}/events                                    | GET    |            |
-| /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/stats | GET    |            |
-
-#### Territories
-
-| URL                                            | METHOD | PARAMETERS |
-| ---------------------------------------------- | ------ | ---------- |
-| /v1/territories/search                         | GET    |            |
-| /v1/territories/{territoryId}                  | GET    |            |
-| /v1/territories/{territoryId}/spaces           | GET    |            |
-| /v1/territories/{territoryId}/spaces/{spaceId} | GET    |            |
-| /v1/territories/{territoryId}/citizens/search  | GET    |            |
+| ROOT        | URL                                                          | METHOD | PARAMETERS |
+| ----------- | ------------------------------------------------------------ | ------ | ---------- |
+| World       | /v1/world/stats                                              | GET    |            |
+|             | /v1/world/stats-events                                       | GET    |            |
+|             | /v1/world/subscribe                                          | PUT    |            |
+|             | /v1/world/subscribers                                        | GET    |            |
+|             | /v1/world/users                                              | GET    |            |
+| Contents    | /v1/contents/{contentId}                                     | GET    |            |
+|             | /v1/contents/{contentId}/pages                               | GET    |            |
+|             | /v1/contents/{contentId}/pages/{pageId}/events               | GET    |            |
+| Items       | /v1/items/search                                             | GET    |            |
+|             | /v1/items/{itemId}                                           | GET    |            |
+|             | /v1/items/{itemId}/versions                                  | GET    |            |
+| Users       | /v1/users/{userId}                                           | GET    |            |
+|             | /v1/users/{userId}/stats-events                              | GET    |            |
+|             | /v1/users/{userId}/events                                    | GET    |            |
+|             | /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/stats | GET    |            |
+| Territories | /v1/territories/search                                       | GET    |            |
+|             | /v1/territories/{territoryId}                                | GET    |            |
+|             | /v1/territories/{territoryId}/spaces                         | GET    |            |
+|             | /v1/territories/{territoryId}/spaces/{spaceId}               | GET    |            |
+|             | /v1/territories/{territoryId}/citizens/search                | GET    |            |
 
 ### Authenticated APIs
 ### Login
-| URL            | METHOD | PARAMETERS                                               | RETURNS             |
-| -------------- | ------ | -------------------------------------------------------- | ------------------- |
-| /v1/auth/login | POST   | {"UserId": "0xe120a1c90a813796425a2e9ef36f692f92d17073"} | {"Token":"abcdefg"} |
+| ROOT | URL            | METHOD | PARAMETERS                                               | RETURNS             |
+| ---- | -------------- | ------ | -------------------------------------------------------- | ------------------- |
+| Auth | /v1/auth/login | POST   | {"UserId": "0xe120a1c90a813796425a2e9ef36f692f92d17073"} | {"Token":"abcdefg"} |
 
 ### Authenticated APIs
 The authenticated APIs requires header being set to following:
@@ -76,45 +54,32 @@ The authenticated APIs requires header being set to following:
 
 
 
-### Users
+### API Calls
 
-| URL                                                          | METHOD | PARAMETERS |
-| ------------------------------------------------------------ | ------ | ---------- |
-| /v1/users/my-passport                                        | GET    |            |
-| /v1/users/my-passport                                        | PATCH  |            |
-| /v1/users/my-footsteps                                       | GET    |            |
-| /v1/users/my-items                                           | GET    |            |
-| /v1/users/my-webpaper                                        | GET    |            |
-| /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/events/start | PUT    |            |
-| /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/events/stop | PUT    |            |
-| /v1/users/{userId}/initialize                                | PUT    |            |
-| /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/sync-stats | PUT    |            |
-| /v1/users/{userId}/sync-stats                                | PUT    |            |
+| ROOT        | URL                                                          | METHOD | PARAMETERS |
+| ----------- | ------------------------------------------------------------ | ------ | ---------- |
+| Users       | /v1/users/my-passport                                        | GET    |            |
+|             | /v1/users/my-passport                                        | PATCH  |            |
+|             | /v1/users/my-footsteps                                       | GET    |            |
+|             | /v1/users/my-items                                           | GET    |            |
+|             | /v1/users/my-webpaper                                        | GET    |            |
+|             | /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/events/start | PUT    |            |
+|             | /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/events/stop | PUT    |            |
+|             | /v1/users/{userId}/initialize                                | PUT    |            |
+|             | /v1/users/{userId}/items/{itemId}/contents/{contentId}/pages/{pageId}/sync-stats | PUT    |            |
+|             | /v1/users/{userId}/sync-stats                                | PUT    |            |
+| Contents    | /v1/contents                                                 | POST   |            |
+|             | /v1/contents/import                                          | PUT    |            |
+|             | /v1/contents/upload                                          | POST   |            |
+| Items       | /v1/items                                                    | POST   |            |
+|             | /v1/items/versions                                           | POST   |            |
+|             | /v1/items/versions/{versionId}/review-action                 | PUT    |            |
+| Territories | /v1/territories                                              | POST   |            |
 
-### Contents
-
-| URL                 | METHOD | PARAMETERS |
-| ------------------- | ------ | ---------- |
-| /v1/contents        | POST   |            |
-| /v1/contents/import | PUT    |            |
-| /v1/contents/upload | POST   |            |
-
-### Items
-
-| URL                                          | METHOD | PARAMETERS |
-| -------------------------------------------- | ------ | ---------- |
-| /v1/items                                    | POST   |            |
-| /v1/items/versions                           | POST   |            |
-| /v1/items/versions/{versionId}/review-action | PUT    |            |
-
-### Territories
-
-| URL             | METHOD | PARAMETERS |
-| --------------- | ------ | ---------- |
-| /v1/territories | POST   |            |
 
 
 ## API links
+
 [api.t2.world](https://hvc0cu76ch.execute-api.ap-northeast-1.amazonaws.com/Prod/swagger/index.html)
 
 # t2 Smart Contracts
