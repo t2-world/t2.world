@@ -88,7 +88,7 @@ There are six contracts for T2 World. They are TXT Contract, Passport Contract, 
 
 ## T2World Public Methods
 
-The T2World Public Methods are for the users.
+The T2World Public Methods are for users.
 
 | CONTRACT | METHOD               | INTRODUCTION                                            | PARAMETERS                                                   | RETURNS                                                      |
 | -------- | -------------------- | ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -112,7 +112,7 @@ The T2World Public Methods are for the users.
 
 ## Contracts Methods
 
-The contracts methods will be called by T2World Contract.
+The contracts methods will be called by T2World Contract. Most of them need a sender parameter.
 
 | CONTRACT | METHOD         | INTRODUCTION           | PARAMETERS | RETURNS |
 | -------- | -------------- | ---------------------- | ---------- | ---------- |
