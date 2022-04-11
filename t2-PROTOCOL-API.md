@@ -86,6 +86,8 @@ The authenticated APIs requires header being set to following:
 ## Introduction
 There are six contracts for T2 World. They are TXT Contract, Passport Contract, Governance Contract, Territory Contract, Item Contract and T2 World Contract. The first three contract were deployed for the tokens(TXT, Passport, Governanace) in T2 World. The Territory Contract is used to record  the details of the territories in T2 World. the Item Contract is used to record the details of the items in T2 World and the main business logic. The T2 World contract is a platform for managing other contracts.
 
+T2 World 的methods 分为 public methods 和 contract methods. public methods 是可以由用户调用进行日常操作的方法. contract methods 是必须由平台管理合约进行调用的各个不同模块合约的方法.
+
 ## T2World Public Methods
 
 The T2World Public Methods are for users.
@@ -141,11 +143,17 @@ The contracts methods will be called by T2World Contract. Most of them need a se
 
 This contract is for the TXT token. It's a token of ERC20 protocol.
 
+TXT 合约是用来记录TXT token的账本合约，采用了ERC20协议. T2 World通过调用TXT合约，进行TXT token的minting和交易. 用户之间可以进行TXT token的交易.
+
 ## Governance Contract
 This contract is for governance token. It's a token of ERC20 protocol
 
+Governance合约是用来记录 Governance token的账本合约, 采用了ERC20协议. T2 World通过调用Governance合约来进行Governance token的minting和交易. 每个territory（community）拥有一个不同的Governance token. 用户之间可以进行Governance token的交易.
+
 ## Passport Contract
 This contract is for passport token. It's a token of ERC721 protocol.
+
+Passport合约是用来记录 passport nft 的账本合约, 采用了ERC721协议. T2 World通过调用Passport合约来进行badge的记录.
 
 | METHOD | INTRODUCTION |
 |-------- |---|
@@ -183,6 +191,8 @@ this method returns a list of all passports.
 
 ## Territory Contract
 This contract is for territories in T2 World.
+
+Territory 合约是用来记录territory数据的数据合约. T2 World通过调用Territory合约来进行Territory的创建和相关操作.
 
 | METHOD | INTRODUCTION |
 |-------- |---|
@@ -252,6 +262,8 @@ this method returns a list of all territories.
 
 ## Item Contract
 This contract is for items in T2 World.
+
+Item合约是用来记录item数据的数据合约. T2 World通过调用Item合约来进行item的创建、修改和其他相关操作.
 
 | METHOD | INTRODUCTION |
 |-------- |---|
@@ -439,6 +451,8 @@ this method withdraw the token to the sender(user).
 ## T2World Contract
 
 The T2 World contract is a platform for managing other contracts.
+
+T2 World合约是平台管理合约. 其他合约由该合约调用进行各种操作. 用户可以调用该合约进行T2 World范围内的活动.
 
 | METHOD               | INTRODUCTION                                            |
 | -------------------- | ------------------------------------------------------- |
