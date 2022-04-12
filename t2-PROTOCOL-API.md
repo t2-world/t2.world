@@ -92,6 +92,8 @@ T2 World 的methods 分为 public methods 和 contract methods. public methods �
 
 The T2World Public Methods are for users.
 
+T2World是T2 World的平台合约. 包含了所有的公共方法. 用户使用该平台合约的方法参与到T2World的内容分享和POA之旅中. 为了DAO的管理, 由该平台合约调用其它各个模块对应的合约, 来实现T2 World中的各种信息和活动. 
+
 | CONTRACT | METHOD               | INTRODUCTION                                            | PARAMETERS                                                   | RETURNS                                                      |
 | -------- | -------------------- | ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | T2World  | createPassport       | create a new passport                                   | title: title of the new passport. <br />detail: detail of the new passport. <br />reputation: reputation of the new passport. |                                                              |
@@ -115,6 +117,14 @@ The T2World Public Methods are for users.
 ## Contracts Methods
 
 The contracts methods will be called by T2World Contract. Most of them need a sender parameter.
+
+这些合约做为token合约和数据交互合约来使用. 包含了五个模块: Passport, TXT, Governance, Territory, Item.
+
+Passport, TXT, Governance是三个Token合约, 分别为T2 World中的三个token账本合约, 可以进行对应token的各种操作.
+
+ Territory, Item是两个数据合约. 分别用来记录T2 World中Territory和Item的数据信息.
+
+由于合约要被T2World调用, 合约调用者是T2World, 需要接受T2World传递过来的用户wallet address. 跟用户相关的方法都需要个sender参数传递用户wallet address.
 
 | CONTRACT | METHOD         | INTRODUCTION           | PARAMETERS | RETURNS |
 | -------- | -------------- | ---------------------- | ---------- | ---------- |
@@ -176,6 +186,12 @@ Passport合约是用来记录 passport nft 的账本合约, 采用了ERC721协�
 
 this method add a new passport with the given parameters.
 
+该方法创建一个创建者wallet address 为sender的新的passport NFT. 包含title, detail, reputation 等信息.
+
+由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### getPassports
 
 **function head**
@@ -188,6 +204,10 @@ this method add a new passport with the given parameters.
 **description**
 
 this method returns a list of all passports.
+
+通过该方法可以获取到包含所有passport的列表.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ## Territory Contract
 This contract is for territories in T2 World.
@@ -215,6 +235,12 @@ Territory 合约是用来记录territory数据的数据合约. T2 World通过调
 
 this method add a new territory with the given parameters.
 
+该方法创建一个创建者为sender的Territory, 包含 name 信息.
+
+由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### hasTerrtory
 
 **function head**
@@ -230,6 +256,10 @@ this method add a new territory with the given parameters.
 **decription**
 
 this method returns a bool value whether there is a territory of the given ID.
+
+该方法判断是否已经存在为该ID的territory, 由于item需要在一个存在的territory下面.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ### getTerritory
 
@@ -247,6 +277,10 @@ this method returns a bool value whether there is a territory of the given ID.
 
 this method returns the details of a territory of the given ID.
 
+根据id获取对应territory的信息.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### getTerritoryList
 
 **function head**
@@ -259,6 +293,10 @@ this method returns the details of a territory of the given ID.
 **description**
 
 this method returns a list of all territories.
+
+该方法返回一个包含所有territory的列表, 是否需要添加关于territory的筛选, 如name, 创建者.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ## Item Contract
 This contract is for items in T2 World.
@@ -311,6 +349,12 @@ this method add a new item with the given parameters.
 
 this method update the title and content hash key of the item with the given ID.
 
+该方法创建一个创建者为sender的Item, 包含title, hh(把内容上传到arweave后的hash key)信息.
+
+由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### getItem
 
 **function head**
@@ -327,6 +371,10 @@ this method update the title and content hash key of the item with the given ID.
 
 this method returns details of a certain item with the given ID.
 
+根据id获取对应的item信息.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### getItemList
 
 **function head**
@@ -339,6 +387,10 @@ this method returns details of a certain item with the given ID.
 **description**
 
 this method returns a list of all items.
+
+获取一个包含所有item的列表.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ### getItemListByTerritory
 
@@ -355,7 +407,11 @@ this method returns a list of all items.
 **description**
 
 this method returns a list of all items under the given territory.
-        
+
+获取一个包含确定的territory下面的所有item的列表.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### votingItem
 
 **function head**
@@ -371,6 +427,12 @@ this method returns a list of all items under the given territory.
 
 this method votes on a given item according to the specified number of votes.
 
+用户给一个存在的item进行投票，并可以指定具体投票数量.
+
+由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### getVotingInfo
 
 **function head**
@@ -383,6 +445,10 @@ this method votes on a given item according to the specified number of votes.
 **description**
 
 this method returns a list containing all item voting information.
+
+通过该方法可以获取到所有item的voting信息, 每个item的voting数量.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ### stakeItem
 
@@ -399,6 +465,12 @@ this method returns a list containing all item voting information.
 
 this method stake to a item with the given ID.
 
+用户给一个存在的item进行投资，并可以指定具体投资数量.
+
+由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### getStakeInfo
 
 **function head**
@@ -411,6 +483,10 @@ this method stake to a item with the given ID.
 **description**
 
 this method return a list containing all item stake information.
+
+通过该方法可以获取到所有投资者的投资信息, 投资的item数量和总投资token数量.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ### prepareReceiveTokens
 
@@ -434,7 +510,11 @@ this method calculate the tokens that every stakeholders should get.
 **description**
 
 get the receive information of all the stakeholder.
-        
+
+该方法会计算所有的投资者当期可以获取到的revenue, 并进行记录. 并没有发送.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.        
+
 ### withdraw
 
 **function head**
@@ -447,6 +527,12 @@ get the receive information of all the stakeholder.
 **description**
 
 this method withdraw the token to the sender(user).
+
+用户通过该方法提取被记录下来应该收取到的revenue, 一次性提取完.
+
+由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ## T2World Contract
 
