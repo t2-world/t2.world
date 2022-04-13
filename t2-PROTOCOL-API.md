@@ -334,6 +334,12 @@ Item合约是用来记录item数据的数据合约. T2 World通过调用Item合�
 
 this method add a new item with the given parameters.
 
+该方法创建一个创建者为sender的Item, 包含title, hh(把内容上传到arweave后的hash key)信息.
+
+由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 ### updateItem
 
 **function head**
@@ -349,11 +355,9 @@ this method add a new item with the given parameters.
 
 this method update the title and content hash key of the item with the given ID.
 
-该方法创建一个创建者为sender的Item, 包含title, hh(把内容上传到arweave后的hash key)信息.
+该方法更新一个存在的Item的title和hh(把内容上传到arweave后的hash key)信息.
 
-由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
-
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+hh部分会添加一个新的version记录.
 
 ### getItem
 
@@ -498,6 +502,10 @@ this method return a list containing all item stake information.
 
 this method calculate the tokens that every stakeholders should get.
 
+该方法会计算所有的投资者当期可以获取到的revenue, 并进行记录. 并没有发送.
+
+需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址. 
+
 ### getReceiveInfo
 
 **function head**
@@ -511,7 +519,7 @@ this method calculate the tokens that every stakeholders should get.
 
 get the receive information of all the stakeholder.
 
-该方法会计算所有的投资者当期可以获取到的revenue, 并进行记录. 并没有发送.
+该方法返回所有投资者的投资信息, 已经收到的revenue和可以提取的revenue.
 
 需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.        
 
@@ -573,6 +581,8 @@ T2 World合约是平台管理合约. 其他合约由该合约调用进行各种�
 
 this method add a new passport with the given parameters.
 
+该方法创建一个创建者为方法调用者wallet address的新passport NFT. 包含title, detail, reputation 等信息.
+
 ### getPassports
 
 **function head**
@@ -585,6 +595,8 @@ this method add a new passport with the given parameters.
 **description**
 
 this method returns a list of all passports.
+
+通过该方法可以获取到包含所有passport的列表.
 
 ### createTerritory
 
@@ -599,6 +611,8 @@ this method returns a list of all passports.
 
 this method add a new territory with the given parameters.
 
+该方法创建一个创建者为sender的Territory, 包含 name 信息.
+
 ### getTerritories
 
 **function head**
@@ -611,6 +625,8 @@ this method add a new territory with the given parameters.
 **description**
 
 this method returns a list of all territories.
+
+该方法返回一个包含所有territory的列表, 是否需要添加关于territory的筛选, 如name, 创建者.
 
 ### createItem
 
@@ -655,6 +671,8 @@ this method update the title and content hash key of the item with the given ID.
 
 this method returns a list of all items.
 
+获取一个包含所有item的列表.
+
 ### getItemsByTerritory
 
 **function head**
@@ -670,7 +688,8 @@ this method returns a list of all items.
 **description**
 
 this method returns a list of all items under the given territory.
-        
+
+获取一个包含确定的territory下面的所有item的列表.
 
 ### votingItem
 
@@ -686,6 +705,8 @@ this method returns a list of all items under the given territory.
 
 this method votes on a given item according to the specified number of votes.
 
+用户给一个存在的item进行投票，并可以指定具体投票数量.
+
 ### getVotingInfo
 
 **function head**
@@ -698,6 +719,8 @@ this method votes on a given item according to the specified number of votes.
 **description**
 
 this method returns a list containing all item voting information.
+
+通过该方法可以获取到所有item的voting信息, 每个item的voting数量.
 
 ### stakeItem
 
@@ -713,6 +736,8 @@ this method returns a list containing all item voting information.
 
 this method stake to a item with the given ID.
 
+用户给一个存在的item进行投资，并可以指定具体投资数量.
+
 ### getStakeInfo
 
 **function head**
@@ -726,6 +751,8 @@ this method stake to a item with the given ID.
 
 this method return a list containing all item stake information.
 
+通过该方法可以获取到所有投资者的投资信息, 投资的item数量和总投资token数量.
+
 ### prepareReceiveTokens
 
 **function head**
@@ -735,6 +762,8 @@ this method return a list containing all item stake information.
 **description**
 
 this method calculate the tokens that every stakeholders should get.
+
+该方法会计算所有的投资者当期可以获取到的revenue, 并进行记录. 并没有发送.
 
 ### getReceiveInfo
 
@@ -748,7 +777,8 @@ this method calculate the tokens that every stakeholders should get.
 **description**
 
 get the receive information of all the stakeholder.
-        
+
+该方法返回所有投资者的投资信息, 已经收到的revenue和可以提取的revenue.        
 
 ### withdraw
 
@@ -759,3 +789,5 @@ get the receive information of all the stakeholder.
 **description**
 
 this method withdraw the token to the sender(user).
+
+用户通过该方法提取被记录下来应该收取到的revenue, 一次性提取完.
