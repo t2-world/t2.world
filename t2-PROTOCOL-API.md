@@ -86,11 +86,17 @@ The authenticated APIs requires header being set to following:
 ## Introduction
 There are six contracts for T2 World. They are TXT Contract, Passport Contract, Governance Contract, Territory Contract, Item Contract and T2 World Contract. The first three contract were deployed for the tokens(TXT, Passport, Governanace) in T2 World. The Territory Contract is used to record  the details of the territories in T2 World. the Item Contract is used to record the details of the items in T2 World and the main business logic. The T2 World contract is a platform for managing other contracts.
 
+The contracts have two categories of methods: one is for the users, one is called by T2World.
+
+The methods in T2World are divided into public methods and contract methods. public method can be called by users for daily operations in T2 World. contract methods are the methods of different module that must be called by the platform management contract.
+
 T2 World 的methods 分为 public methods 和 contract methods. public methods 是可以由用户调用进行日常操作的方法. contract methods 是必须由平台管理合约进行调用的各个不同模块合约的方法.
 
 ## T2World Public Methods
 
 The T2World Public Methods are for users.
+
+T2World is the platform contract of t2 world which contains all public methods.  users can use the methods of platform contract to participate in the content sharing and POA (proof of attention) journey of t2 world. for the DAO management, we let the platform contract calls the module contracts to manage various information and activities in t2 world.
 
 T2World是T2 World的平台合约. 包含了所有的公共方法. 用户使用该平台合约的方法参与到T2World的内容分享和POA之旅中. 为了DAO的管理, 由该平台合约调用其它各个模块对应的合约, 来实现T2 World中的各种信息和活动. 
 
@@ -117,6 +123,10 @@ T2World是T2 World的平台合约. 包含了所有的公共方法. 用户使用�
 ## Contracts Methods
 
 The contracts methods will be called by T2World Contract. Most of them need a sender parameter.
+
+These contracts are used as token contracts and data interaction contracts. it contains five modules: Passport, TXT, Governance, Territory and Item. the first three contracts are token contracts in t2 world, and can do  various operations to tokens in t2 world. Territory and Item are two data contracts which is used to record data information of territory and item in t2 world.
+
+As the contracts are called by T2World, not by users. the contract methods which had changed contract data all need a address parameter which send from T2World. 
 
 这些合约做为token合约和数据交互合约来使用. 包含了五个模块: Passport, TXT, Governance, Territory, Item.
 
@@ -153,15 +163,21 @@ Passport, TXT, Governance是三个Token合约, 分别为T2 World中的三个toke
 
 This contract is for the TXT token. It's a token of ERC20 protocol.
 
+TXT Contract is an account contract used to record TXT token which use ERC20 protocol. T2World call this contract  to minting and trade the TXT token. users can trade txt by it.
+
 TXT 合约是用来记录TXT token的账本合约，采用了ERC20协议. T2 World通过调用TXT合约，进行TXT token的minting和交易. 用户之间可以进行TXT token的交易.
 
 ## Governance Contract
-This contract is for governance token. It's a token of ERC20 protocol
+This contract is for governance token. It's a token of ERC20 protocol.
+
+Governance Contract is an account contract used to record Governance token which use ERC20 protocol. T2World call this contract  to minting and trade the TXT token. every territory (community) has an unique Governance Token. users can trade governance by it.
 
 Governance合约是用来记录 Governance token的账本合约, 采用了ERC20协议. T2 World通过调用Governance合约来进行Governance token的minting和交易. 每个territory（community）拥有一个不同的Governance token. 用户之间可以进行Governance token的交易.
 
 ## Passport Contract
 This contract is for passport token. It's a token of ERC721 protocol.
+
+Passport Contract is an account contract used to record Passport NFT which use ERC721 protocol. T2World call this contract to minting the Passport token.
 
 Passport合约是用来记录 passport nft 的账本合约, 采用了ERC721协议. T2 World通过调用Passport合约来进行badge的记录.
 
@@ -211,6 +227,8 @@ this method returns a list of all passports.
 
 ## Territory Contract
 This contract is for territories in T2 World.
+
+Territory Contract is an data contract used to record territory data. T2World call this contract to create territory and other operations about territory.
 
 Territory 合约是用来记录territory数据的数据合约. T2 World通过调用Territory合约来进行Territory的创建和相关操作.
 
@@ -300,6 +318,8 @@ this method returns a list of all territories.
 
 ## Item Contract
 This contract is for items in T2 World.
+
+Item Contract is an data contract used to record territory data. T2World call this contract to create item and other operations about item.
 
 Item合约是用来记录item数据的数据合约. T2 World通过调用Item合约来进行item的创建、修改和其他相关操作.
 
@@ -790,4 +810,4 @@ get the receive information of all the stakeholder.
 
 this method withdraw the token to the sender(user).
 
-用户通过该方法提取被记录下来应该收取到的revenue, 一次性提取完.
+用户通过该方法提取被记录下来应该收取到的revenue, 一次性提取完.33
