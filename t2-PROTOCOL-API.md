@@ -128,13 +128,7 @@ These contracts are used as token contracts and data interaction contracts. it c
 
 As the contracts are called by T2World, not by users. the contract methods which had changed contract data all need a address parameter which send from T2World. 
 
-这些合约做为token合约和数据交互合约来使用. 包含了五个模块: Passport, TXT, Governance, Territory, Item.
 
-Passport, TXT, Governance是三个Token合约, 分别为T2 World中的三个token账本合约, 可以进行对应token的各种操作.
-
- Territory, Item是两个数据合约. 分别用来记录T2 World中Territory和Item的数据信息.
-
-由于合约要被T2World调用, 合约调用者是T2World, 需要接受T2World传递过来的用户wallet address. 跟用户相关的方法都需要个sender参数传递用户wallet address.
 
 | CONTRACT | METHOD         | INTRODUCTION           | PARAMETERS | RETURNS |
 | -------- | -------------- | ---------------------- | ---------- | ---------- |
@@ -165,21 +159,19 @@ This contract is for the TXT token. It's a token of ERC20 protocol.
 
 TXT Contract is an account contract used to record TXT token which use ERC20 protocol. T2World call this contract  to minting and trade the TXT token. users can trade txt by it.
 
-TXT 合约是用来记录TXT token的账本合约，采用了ERC20协议. T2 World通过调用TXT合约，进行TXT token的minting和交易. 用户之间可以进行TXT token的交易.
+
 
 ## Governance Contract
 This contract is for governance token. It's a token of ERC20 protocol.
 
 Governance Contract is an account contract used to record Governance token which use ERC20 protocol. T2World call this contract  to minting and trade the TXT token. every territory (community) has an unique Governance Token. users can trade governance by it.
 
-Governance合约是用来记录 Governance token的账本合约, 采用了ERC20协议. T2 World通过调用Governance合约来进行Governance token的minting和交易. 每个territory（community）拥有一个不同的Governance token. 用户之间可以进行Governance token的交易.
+
 
 ## Passport Contract
 This contract is for passport token. It's a token of ERC721 protocol.
 
 Passport Contract is an account contract used to record Passport NFT which use ERC721 protocol. T2World call this contract to minting the Passport token.
-
-Passport合约是用来记录 passport nft 的账本合约, 采用了ERC721协议. T2 World通过调用Passport合约来进行badge的记录.
 
 | METHOD | INTRODUCTION |
 |-------- |---|
@@ -200,13 +192,9 @@ Passport合约是用来记录 passport nft 的账本合约, 采用了ERC721协�
 
 **description**
 
-this method add a new passport with the given parameters.
+This method add a new passport NFT for sender(wallet address of creator). contains sender, title, detail, and reputation.
 
-该方法创建一个创建者wallet address 为sender的新的passport NFT. 包含title, detail, reputation 等信息.
-
-由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
-
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
 ### getPassports
 
@@ -219,18 +207,16 @@ this method add a new passport with the given parameters.
 
 **description**
 
-this method returns a list of all passports.
+This method returns a list of all passports.
 
-通过该方法可以获取到包含所有passport的列表.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 
 ## Territory Contract
 This contract is for territories in T2 World.
 
 Territory Contract is an data contract used to record territory data. T2World call this contract to create territory and other operations about territory.
-
-Territory 合约是用来记录territory数据的数据合约. T2 World通过调用Territory合约来进行Territory的创建和相关操作.
 
 | METHOD | INTRODUCTION |
 |-------- |---|
@@ -251,33 +237,32 @@ Territory 合约是用来记录territory数据的数据合约. T2 World通过调
 
 **description**
 
-this method add a new territory with the given parameters.
+This method add a new territory for sender(wallet address of creator). contains sender, name.
 
-该方法创建一个创建者为sender的Territory, 包含 name 信息.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ### hasTerrtory
 
 **function head**
         
+
     function hasTerrtory(uint id) view public returns(bool); 
 
 * parameters 
     * id: ID of a certain territory.
 
 * returns
-    * a bool value(true or false).
+    * a boolean value(true or false).
 
 **decription**
 
-this method returns a bool value whether there is a territory of the given ID.
+This method returns a boolean value whether territory with this ID already exists, since item needs to be under an existing territory.
 
-该方法判断是否已经存在为该ID的territory, 由于item需要在一个存在的territory下面.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 
 ### getTerritory
 
@@ -293,11 +278,11 @@ this method returns a bool value whether there is a territory of the given ID.
 
 **description**
 
-this method returns the details of a territory of the given ID.
+This method returns details of a territory with the given ID.
 
-根据id获取对应territory的信息.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 
 ### getTerritoryList
 
@@ -310,18 +295,18 @@ this method returns the details of a territory of the given ID.
 
 **description**
 
-this method returns a list of all territories.
+This method returns  a list of all territories.
 
-该方法返回一个包含所有territory的列表, 是否需要添加关于territory的筛选, 如name, 创建者.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+PS: if there need add some filters. such as name, creator and so on.
+
+
 
 ## Item Contract
 This contract is for items in T2 World.
 
 Item Contract is an data contract used to record territory data. T2World call this contract to create item and other operations about item.
-
-Item合约是用来记录item数据的数据合约. T2 World通过调用Item合约来进行item的创建、修改和其他相关操作.
 
 | METHOD | INTRODUCTION |
 |-------- |---|
@@ -352,13 +337,11 @@ Item合约是用来记录item数据的数据合约. T2 World通过调用Item合�
 
 **description**
 
-this method add a new item with the given parameters.
+This method add a new item for sender(wallet address of creator). contains territory, title, author and hh(hash key after uploading the content to arweave).
 
-该方法创建一个创建者为sender的Item, 包含title, hh(把内容上传到arweave后的hash key)信息.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ### updateItem
 
@@ -373,11 +356,13 @@ this method add a new item with the given parameters.
 
 **description**
 
-this method update the title and content hash key of the item with the given ID.
+This method update the title and hh(hash key after uploading content to areave) of an existing item. a new version of hh is added to the item. contains id, title, and hh(hash key after uploading content to areave).
 
-该方法更新一个存在的Item的title和hh(把内容上传到arweave后的hash key)信息.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-hh部分会添加一个新的version记录.
+PS: if there need to verify that the sender is creator of the item.
+
+
 
 ### getItem
 
@@ -393,11 +378,11 @@ hh部分会添加一个新的version记录.
 
 **description**
 
-this method returns details of a certain item with the given ID.
+This method returns details of a certain item with the given ID.
 
-根据id获取对应的item信息.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 
 ### getItemList
 
@@ -410,11 +395,11 @@ this method returns details of a certain item with the given ID.
 
 **description**
 
-this method returns a list of all items.
+This method returns a list of all items.
 
-获取一个包含所有item的列表.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 
 ### getItemListByTerritory
 
@@ -430,11 +415,11 @@ this method returns a list of all items.
 
 **description**
 
-this method returns a list of all items under the given territory.
+This method returns a list of all items under the given territory.
 
-获取一个包含确定的territory下面的所有item的列表.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 
 ### votingItem
 
@@ -449,13 +434,11 @@ this method returns a list of all items under the given territory.
 
 **description**
 
-this method votes on a given item according to the specified number of votes.
+This method votes on an existing item and can specify the number of votes. contains sender, itemId and votingToken.
 
-用户给一个存在的item进行投票，并可以指定具体投票数量.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ### getVotingInfo
 
@@ -468,11 +451,11 @@ this method votes on a given item according to the specified number of votes.
 
 **description**
 
-this method returns a list containing all item voting information.
+This method returns voting information of all items and the number of voting for each item.
 
-通过该方法可以获取到所有item的voting信息, 每个item的voting数量.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 
 ### stakeItem
 
@@ -487,13 +470,11 @@ this method returns a list containing all item voting information.
 
 **description**
 
-this method stake to a item with the given ID.
+This method invests in an existing item and can specify the amount of investment. contains sender, itemId and stakeToken.
 
-用户给一个存在的item进行投资，并可以指定具体投资数量.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ### getStakeInfo
 
@@ -506,11 +487,11 @@ this method stake to a item with the given ID.
 
 **description**
 
-this method return a list containing all item stake information.
+This method returns investment information of all items. contains the total number of tokens invested in each item.
 
-通过该方法可以获取到所有投资者的投资信息, 投资的item数量和总投资token数量.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
+
 
 ### prepareReceiveTokens
 
@@ -520,11 +501,11 @@ this method return a list containing all item stake information.
 
 **description**
 
-this method calculate the tokens that every stakeholders should get.
+This method calculate and record the revenue that all investors can get in the current period. the revenue hasn't been sent.
 
-该方法会计算所有的投资者当期可以获取到的revenue, 并进行记录. 并没有发送.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址. 
+
 
 ### getReceiveInfo
 
@@ -537,11 +518,11 @@ this method calculate the tokens that every stakeholders should get.
 
 **description**
 
-get the receive information of all the stakeholder.
+This method returns investment information of all stakeholders. contains the revenue that has been received and revenue that can be extracted.
 
-该方法返回所有投资者的投资信息, 已经收到的revenue和可以提取的revenue.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.        
+
 
 ### withdraw
 
@@ -554,13 +535,11 @@ get the receive information of all the stakeholder.
 
 **description**
 
-this method withdraw the token to the sender(user).
+This method allows the sender to extract the recorded revenue that should be collected at one time. contains sender.
 
-用户通过该方法提取被记录下来应该收取到的revenue, 一次性提取完.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
-由于是被T2World调用, sender地址是T2World的地址, 需要传递用户的wallet address.
 
-需要验证该方法的调用地址是否为T2World. 可以由合约创建者设置T2World合约的地址.
 
 ## T2World Contract
 
@@ -599,9 +578,11 @@ T2 World合约是平台管理合约. 其他合约由该合约调用进行各种�
 
 **description**
 
-this method add a new passport with the given parameters.
+This method add a new passport NFT for sender(caller of this method). contains title, detail, and reputation.
 
-该方法创建一个创建者为方法调用者wallet address的新passport NFT. 包含title, detail, reputation 等信息.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getPassports
 
@@ -614,9 +595,11 @@ this method add a new passport with the given parameters.
 
 **description**
 
-this method returns a list of all passports.
+This method returns a list of all passports.
 
-通过该方法可以获取到包含所有passport的列表.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### createTerritory
 
@@ -629,9 +612,11 @@ this method returns a list of all passports.
 
 **description**
 
-this method add a new territory with the given parameters.
+This method add a new territory for sender(caller of this method). contains name.
 
-该方法创建一个创建者为sender的Territory, 包含 name 信息.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getTerritories
 
@@ -644,9 +629,11 @@ this method add a new territory with the given parameters.
 
 **description**
 
-this method returns a list of all territories.
+This method returns  a list of all territories.
 
-该方法返回一个包含所有territory的列表, 是否需要添加关于territory的筛选, 如name, 创建者.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### createItem
 
@@ -661,7 +648,11 @@ this method returns a list of all territories.
 
 **description**
 
-this method add a new item with the given parameters.
+This method add a new item for sender(caller of this method). contains territory, title, and hh(hash key after uploading the content to arweave).
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### updateItem
 
@@ -676,7 +667,13 @@ this method add a new item with the given parameters.
 
 **description**
 
-this method update the title and content hash key of the item with the given ID.
+This method update the title and hh(hash key after uploading content to arweave) of an existing item. a new version of hh is added to the item. contains id, title and hh(hash key after uploading content to arweave).
+
+Need to verify that the sender is creator of the item.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getItems
 
@@ -689,9 +686,11 @@ this method update the title and content hash key of the item with the given ID.
 
 **description**
 
-this method returns a list of all items.
+This method returns a list of all items.
 
-获取一个包含所有item的列表.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getItemsByTerritory
 
@@ -707,9 +706,11 @@ this method returns a list of all items.
 
 **description**
 
-this method returns a list of all items under the given territory.
+This method returns a list of all items under the given territory. contains territory(id of a certain territory).
 
-获取一个包含确定的territory下面的所有item的列表.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### votingItem
 
@@ -723,9 +724,11 @@ this method returns a list of all items under the given territory.
 
 **description**
 
-this method votes on a given item according to the specified number of votes.
+This method votes on an existing item and can specify the number of votes. contains itemId, and votingToken.
 
-用户给一个存在的item进行投票，并可以指定具体投票数量.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getVotingInfo
 
@@ -738,9 +741,11 @@ this method votes on a given item according to the specified number of votes.
 
 **description**
 
-this method returns a list containing all item voting information.
+This method returns voting information of all items and the number of voting for each item.
 
-通过该方法可以获取到所有item的voting信息, 每个item的voting数量.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### stakeItem
 
@@ -754,9 +759,11 @@ this method returns a list containing all item voting information.
 
 **description**
 
-this method stake to a item with the given ID.
+This method invests in an existing item and can specify the amount of investment. contains itemId and stakeToken.
 
-用户给一个存在的item进行投资，并可以指定具体投资数量.
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getStakeInfo
 
@@ -769,9 +776,11 @@ this method stake to a item with the given ID.
 
 **description**
 
-this method return a list containing all item stake information.
+This method returns investment information of all items. contains the total number of tokens invested in each item.
 
-通过该方法可以获取到所有投资者的投资信息, 投资的item数量和总投资token数量.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### prepareReceiveTokens
 
@@ -781,9 +790,11 @@ this method return a list containing all item stake information.
 
 **description**
 
-this method calculate the tokens that every stakeholders should get.
+This method calculate and record the revenue that all investors can get in the current period. the revenue hasn't been sent.
 
-该方法会计算所有的投资者当期可以获取到的revenue, 并进行记录. 并没有发送.
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getReceiveInfo
 
@@ -796,9 +807,11 @@ this method calculate the tokens that every stakeholders should get.
 
 **description**
 
-get the receive information of all the stakeholder.
+This method returns investment information of all stakeholders. contains the revenue that has been received and revenue that can be extracted.
 
-该方法返回所有投资者的投资信息, 已经收到的revenue和可以提取的revenue.        
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### withdraw
 
@@ -808,6 +821,9 @@ get the receive information of all the stakeholder.
 
 **description**
 
-this method withdraw the token to the sender(user).
+This method allows the sender to extract the recorded revenue that should be collected at one time.
 
-用户通过该方法提取被记录下来应该收取到的revenue, 一次性提取完.33
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
