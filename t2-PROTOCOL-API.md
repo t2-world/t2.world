@@ -86,14 +86,97 @@ The authenticated APIs requires header being set to following:
 ## Introduction
 There are six contracts for T2 World. They are TXT Contract, Passport Contract, Governance Contract, Territory Contract, Item Contract and T2 World Contract. The first three contract were deployed for the tokens(TXT, Passport, Governanace) in T2 World. The Territory Contract is used to record  the details of the territories in T2 World. the Item Contract is used to record the details of the items in T2 World and the main business logic. The T2 World contract is a platform for managing other contracts.
 
+The contracts have two categories of methods: one is for the users, one is called by T2World.
+
+The methods in T2World are divided into public methods and contract methods. public method can be called by users for daily operations in T2 World. contract methods are the methods of different module that must be called by the platform management contract.
+
+T2 World 的methods 分为 public methods 和 contract methods. public methods 是可以由用户调用进行日常操作的方法. contract methods 是必须由平台管理合约进行调用的各个不同模块合约的方法.
+
+## T2World Public Methods
+
+The T2World Public Methods are for users.
+
+T2World is the platform contract of t2 world which contains all public methods.  users can use the methods of platform contract to participate in the content sharing and POA (proof of attention) journey of t2 world. for the DAO management, we let the platform contract calls the module contracts to manage various information and activities in t2 world.
+
+T2World是T2 World的平台合约. 包含了所有的公共方法. 用户使用该平台合约的方法参与到T2World的内容分享和POA之旅中. 为了DAO的管理, 由该平台合约调用其它各个模块对应的合约, 来实现T2 World中的各种信息和活动. 
+
+| CONTRACT | METHOD               | INTRODUCTION                                            | PARAMETERS                                                   | RETURNS                                                      |
+| -------- | -------------------- | ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| T2World  | createPassport       | create a new passport                                   | title: title of the new passport. <br />detail: detail of the new passport. <br />reputation: reputation of the new passport. |                                                              |
+|          | getPassports         | get a certain passport                                  |                                                              | a list of all passports.                                     |
+|          | createTerritory      | create a new territory                                  | name: name of the new territory.                             |                                                              |
+|          | getTerritories       | get a list of all territories                           |                                                              | list of all territories.                                     |
+|          | createItem           | create a new item                                       | territory: ID of a certain territory.<br />title: title of the new item.<br />hh: hash key of the new content. |                                                              |
+|          | updateItem           | update a certain item                                   | id: ID of a certain item.<br />title: new title of the item.<br />hh: new content hash key of the item. |                                                              |
+|          | getItems             | get a list of all items                                 |                                                              | a list of all items.                                         |
+|          | getItemsByTerritory  | get a list of items which after the given terrtiroy     | territory: ID of a certain territory.                        | a list containing all items under the territory.             |
+|          | votingItem           | voting to a certain item                                | itemId: ID of a certain item.<br />votingToken token number of votes. |                                                              |
+|          | getVotingInfo        | get the voting information of all items                 |                                                              | a list containing all item voting information.               |
+|          | stakeItem            | stake to a certain item                                 | itemId: ID of a certain item.<br />stakeToken: token number of the stake. |                                                              |
+|          | getStakeInfo         | get stake information of all items                      |                                                              | a list containing all item stake information.                |
+|          | prepareReceiveTokens | calculate the tokens than every stakeholders should get |                                                              |                                                              |
+|          | getReceiveInfo       | get the receive information of all stakeholders         |                                                              | a list containing the receive information of all stakeholders. |
+|          | withdraw             | withdraw the token to the caller                        |                                                              |                                                              |
+
+
+
+## Contracts Methods
+
+The contracts methods will be called by T2World Contract. Most of them need a sender parameter.
+
+These contracts are used as token contracts and data interaction contracts. it contains five modules: Passport, TXT, Governance, Territory and Item. the first three contracts are token contracts in t2 world, and can do  various operations to tokens in t2 world. Territory and Item are two data contracts which is used to record data information of territory and item in t2 world.
+
+As the contracts are called by T2World, not by users. the contract methods which had changed contract data all need a address parameter which send from T2World. 
+
+
+
+| CONTRACT | METHOD         | INTRODUCTION           | PARAMETERS | RETURNS |
+| -------- | -------------- | ---------------------- | ---------- | ---------- |
+| Passport | createPassport | create a new passport  | sender: wallet address of the creator.<br />title: title of the new passport. <br />detail: detail of the new passport. <br />reputation: reputation of the new passport. |  |
+|  | getPassports   | get a certain passport |            | a list of all passports. |
+| Territory | createTerritory  | create a new territory        |sender: wallet address of the creator. <br />name: name of the new territory.||
+|  | hasTerritory     | if there has a certain territory with the given ID |id: ID of a certain territory.|a bool value(true or false).|
+|  | getTerritory     | get a certain territory                            |id: ID of a certain territory.|details of a territory.|
+|  |getTerritoryList | get a list of all territories                      ||list of all territories.|
+| Item | createItem             | create a new item              |territory: ID of a certain territory.<br />title: title of the new item.<br />author: wallet address of the creator.<br />hh: hash key of the new content.||
+| | updateItem             | update a certain item                                   |id: ID of a certain item.<br />title: new title of the item.<br />hh: new content hash key of the item.||
+| | getItem                | get a certain item                                      |id: ID of a certain item.|details of the item.|
+| | getItemList            | get a list of all items                                 ||a list of all items.|
+| | getItemListByTerritory | get a list of items which after the given terrtiroy     |territory: ID of a certain territory.|a list containing all items under the territory.|
+| | votingItem             | voting to a certain item                                |sender: wallet address of the user.<br />itemId: ID of a certain item.<br />votingToken token number of votes.||
+| | getVotingInfo          | get the voting information of all items                 ||a list containing all item voting information.|
+| | stakeItem              | stake to a certain item                                 |sender: wallet address of the user.<br />itemId: ID of a certain item.<br />stakeToken: token number of the stake.||
+| | getStakeInfo           | get stake information of all items                      ||a list containing all item stake information.|
+| | prepareReceiveTokens   | calculate the tokens than every stakeholders should get |||
+| | getReceiveInfo         | get the receive information of all stakeholders         ||a list containing the receive information of all stakeholders.|
+| | withdraw               | withdraw the token to the caller                        |sender: wallet address of a user.||
+
+
+
 ## TXT Contract
+
 This contract is for the TXT token. It's a token of ERC20 protocol.
 
+TXT Contract is an account contract used to record TXT token which use ERC20 protocol. T2World call this contract  to minting and trade the TXT token. users can trade txt by it.
+
+
+
 ## Governance Contract
-This contract is for governance token. It's a token of ERC20 protocol
+This contract is for governance token. It's a token of ERC20 protocol.
+
+Governance Contract is an account contract used to record Governance token which use ERC20 protocol. T2World call this contract  to minting and trade the TXT token. every territory (community) has an unique Governance Token. users can trade governance by it.
+
+
 
 ## Passport Contract
 This contract is for passport token. It's a token of ERC721 protocol.
+
+Passport Contract is an account contract used to record Passport NFT which use ERC721 protocol. T2World call this contract to minting the Passport token.
+
+| METHOD | INTRODUCTION |
+|-------- |---|
+| createPassport | create a new passport |
+| getPassports| get a certain passport |
 
 ### createPassport
 
@@ -101,7 +184,7 @@ This contract is for passport token. It's a token of ERC721 protocol.
 
     function createPassport(address sender, string memory title, string memory detail, uint reputation) public;
 
-* PARAMETERS
+* parameters 
     * sender: wallet address of the creator.
     * title: title of the new passport.
     * detail: detail of the new passport.
@@ -109,7 +192,9 @@ This contract is for passport token. It's a token of ERC721 protocol.
 
 **description**
 
-this METHOD add a new passport with the given PARAMETERS.
+This method add a new passport NFT for sender(wallet address of creator). contains sender, title, detail, and reputation.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
 
 ### getPassports
 
@@ -122,10 +207,23 @@ this METHOD add a new passport with the given PARAMETERS.
 
 **description**
 
-this METHOD returns a list of all passports.
+This method returns a list of all passports.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ## Territory Contract
 This contract is for territories in T2 World.
+
+Territory Contract is an data contract used to record territory data. T2World call this contract to create territory and other operations about territory.
+
+| METHOD | INTRODUCTION |
+|-------- |---|
+| createTerritory | create a new territory |
+| hasTerritory | if there has a certain territory with the given ID |
+| getTerritory | get a certain territory |
+| getTerritoryList | get a list of all territories |
 
 ### createTerritory
 
@@ -139,23 +237,32 @@ This contract is for territories in T2 World.
 
 **description**
 
-this METHOD add a new territory with the given PARAMETERS.
+This method add a new territory for sender(wallet address of creator). contains sender, name.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### hasTerrtory
 
 **function head**
         
+
     function hasTerrtory(uint id) view public returns(bool); 
 
-* PARAMETERS
+* parameters 
     * id: ID of a certain territory.
 
 * returns
-    * a bool value(true or false).
+    * a boolean value(true or false).
 
 **decription**
 
-this METHOD returns a bool value whether there is a territory of the given ID.
+This method returns a boolean value whether territory with this ID already exists, since item needs to be under an existing territory.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getTerritory
 
@@ -163,7 +270,7 @@ this METHOD returns a bool value whether there is a territory of the given ID.
     
     function getTerritory(uint id) view public returns(Territory memory);
 
-* PARAMETERS
+* parameters
     * id: ID of a certain territory.
 
 * returns
@@ -171,7 +278,11 @@ this METHOD returns a bool value whether there is a territory of the given ID.
 
 **description**
 
-this METHOD returns the details of a territory of the given ID.
+This method returns details of a territory with the given ID.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getTerritoryList
 
@@ -184,10 +295,33 @@ this METHOD returns the details of a territory of the given ID.
 
 **description**
 
-this METHOD returns a list of all territories.
+This method returns  a list of all territories.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+PS: if there need add some filters. such as name, creator and so on.
+
+
 
 ## Item Contract
 This contract is for items in T2 World.
+
+Item Contract is an data contract used to record territory data. T2World call this contract to create item and other operations about item.
+
+| METHOD | INTRODUCTION |
+|-------- |---|
+| createItem | create a new item |
+| updateItem | update a certain item |
+| getItem | get a certain item |
+| getItemList | get a list of all items |
+| getItemListByTerritory | get a list of items which after the given terrtiroy |
+| votingItem | voting to a certain item |
+| getVotingInfo | get the voting information of all items |
+| stakeItem | stake to a certain item |
+| getStakeInfo | get stake information of all items |
+| prepareReceiveTokens | calculate the tokens than every stakeholders should get |
+| getReceiveInfo | get the receive information of all stakeholders |
+| withdraw | withdraw the token to the caller |
 
 ### createItem
 
@@ -195,7 +329,7 @@ This contract is for items in T2 World.
 
      function createItem(uint256 territory, string memory title, address author, string memory hh) public;
 
-* PARAMETERS
+* parameters
     * territory: ID of a certain territory.
     * title: title of the new item.
     * author: wallet address of the creator.
@@ -203,7 +337,11 @@ This contract is for items in T2 World.
 
 **description**
 
-this METHOD add a new item with the given PARAMETERS.
+This method add a new item for sender(wallet address of creator). contains territory, title, author and hh(hash key after uploading the content to arweave).
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### updateItem
 
@@ -211,14 +349,20 @@ this METHOD add a new item with the given PARAMETERS.
 
     function updateItem(uint256 id, string memory title, string memory hh) public;
 
-* PARAMETERS
+* parameters
     * id: ID of a certain item.
     * title: new title of the item.
     * hh: new content hash key of the item. 
 
 **description**
 
-this METHOD update the title and content hash key of the item with the given ID.
+This method update the title and hh(hash key after uploading content to areave) of an existing item. a new version of hh is added to the item. contains id, title, and hh(hash key after uploading content to areave).
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+PS: if there need to verify that the sender is creator of the item.
+
+
 
 ### getItem
 
@@ -226,7 +370,7 @@ this METHOD update the title and content hash key of the item with the given ID.
 
    function getItem(uint256 id) view public returns(Item memory);
 
-* PARAMETERS
+* parameters
     * id: ID of a certain item.
 
 * returns
@@ -234,7 +378,11 @@ this METHOD update the title and content hash key of the item with the given ID.
 
 **description**
 
-this METHOD returns details of a certain item with the given ID.
+This method returns details of a certain item with the given ID.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getItemList
 
@@ -247,7 +395,11 @@ this METHOD returns details of a certain item with the given ID.
 
 **description**
 
-this METHOD returns a list of all items.
+This method returns a list of all items.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getItemListByTerritory
 
@@ -255,7 +407,7 @@ this METHOD returns a list of all items.
 
     function getItemListByTerritory(uint territory) view public returns(Item[] memory);
 
-* PARAMETERS 
+* parameters
     * territory: ID of a certain territory.
 
 * returns
@@ -263,22 +415,30 @@ this METHOD returns a list of all items.
 
 **description**
 
-this METHOD returns a list of all items under the given territory.
-        
+This method returns a list of all items under the given territory.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
 ### votingItem
 
 **function head**
 
     function votingItem(address sender, uint256 itemId, uint256 votingToken) public;
 
-* PARAMETERS
+* parameters
     * sender: wallet address of the user.
     * itemId: ID of a certain item.
     * votingToken token number of votes.
 
 **description**
 
-this METHOD votes on a given item according to the specified number of votes.
+This method votes on an existing item and can specify the number of votes. contains sender, itemId and votingToken.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getVotingInfo
 
@@ -291,7 +451,11 @@ this METHOD votes on a given item according to the specified number of votes.
 
 **description**
 
-this METHOD returns a list containing all item voting information.
+This method returns voting information of all items and the number of voting for each item.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### stakeItem
 
@@ -299,14 +463,18 @@ this METHOD returns a list containing all item voting information.
 
     function stakeItem(address sender, uint256 itemId, uint256 stakeToken) public;
 
-* PARAMETERS
+* parameters
     * sender: wallet address of the user.
     * itemId: ID of a certain item.
     * stakeToken: token number of the stake.
 
 **description**
 
-this METHOD stake to a item with the given ID.
+This method invests in an existing item and can specify the amount of investment. contains sender, itemId and stakeToken.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getStakeInfo
 
@@ -319,7 +487,11 @@ this METHOD stake to a item with the given ID.
 
 **description**
 
-this METHOD return a list containing all item stake information.
+This method returns investment information of all items. contains the total number of tokens invested in each item.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### prepareReceiveTokens
 
@@ -329,7 +501,11 @@ this METHOD return a list containing all item stake information.
 
 **description**
 
-this METHOD calculate the tokens that every stakeholders should get.
+This method calculate and record the revenue that all investors can get in the current period. the revenue hasn't been sent.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 ### getReceiveInfo
 
@@ -342,20 +518,312 @@ this METHOD calculate the tokens that every stakeholders should get.
 
 **description**
 
-get the receive information of all the stakeholder.
-        
+This method returns investment information of all stakeholders. contains the revenue that has been received and revenue that can be extracted.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
 ### withdraw
 
 **function head**
 
     function withdraw(address sender) public;
 
-* PARAMETERS
+* parameters
     * sender: wallet address of a user.
 
 **description**
 
-this method withdraw the token to the sender(user).
+This method allows the sender to extract the recorded revenue that should be collected at one time. contains sender.
 
-​        
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+## T2World Contract
+
+The T2 World contract is a platform for managing other contracts.
+
+T2 World合约是平台管理合约. 其他合约由该合约调用进行各种操作. 用户可以调用该合约进行T2 World范围内的活动.
+
+| METHOD               | INTRODUCTION                                            |
+| -------------------- | ------------------------------------------------------- |
+| createPassport       | create a new passport                                   |
+| getPassports         | get a certain passport                                  |
+| createTerritory      | create a new territory                                  |
+| getTerritories       | get a list of all territories                           |
+| createItem           | create a new item                                       |
+| updateItem           | update a certain item                                   |
+| getItems             | get a list of all items                                 |
+| getItemsByTerritory  | get a list of items which after the given terrtiroy     |
+| votingItem           | voting to a certain item                                |
+| getVotingInfo        | get the voting information of all items                 |
+| stakeItem            | stake to a certain item                                 |
+| getStakeInfo         | get stake information of all items                      |
+| prepareReceiveTokens | calculate the tokens than every stakeholders should get |
+| getReceiveInfo       | get the receive information of all stakeholders         |
+| withdraw             | withdraw the token to the caller                        |
+
+### createPassport
+
+**function head**
+
+    function createPassport(string memory title, string memory detail, uint reputation) public;
+
+* parameters 
+  * title: title of the new passport.
+  * detail: detail of the new passport.
+  * reputation: reputation of the new passport.
+
+**description**
+
+This method add a new passport NFT for sender(caller of this method). contains title, detail, and reputation.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### getPassports
+
+**function head**
+
+    function getPassports() view public returns(PassportDetail[] memory);
+
+* returns
+  * a list of all passports.
+
+**description**
+
+This method returns a list of all passports.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### createTerritory
+
+**function head**
+
+    function createTerritory(string memory name) public returns(bool);
+
+* parameters
+  * name: name of the new territory.
+
+**description**
+
+This method add a new territory for sender(caller of this method). contains name.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### getTerritories
+
+**function head**
+
+    function getTerritories() view public returns(Territory[] memory);
+
+* returns
+  * list of all territories.
+
+**description**
+
+This method returns  a list of all territories.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### createItem
+
+**function head**
+
+     function createItem(uint256 territory, string memory title, string memory hh) public;
+
+* parameters
+  * territory: ID of a certain territory.
+  * title: title of the new item.
+  * hh: hash key of the new content.
+
+**description**
+
+This method add a new item for sender(caller of this method). contains territory, title, and hh(hash key after uploading the content to arweave).
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### updateItem
+
+**function head**
+
+    function updateItem(uint256 id, string memory title, string memory hh) public;
+
+* parameters
+  * id: ID of a certain item.
+  * title: new title of the item.
+  * hh: new content hash key of the item. 
+
+**description**
+
+This method update the title and hh(hash key after uploading content to arweave) of an existing item. a new version of hh is added to the item. contains id, title and hh(hash key after uploading content to arweave).
+
+Need to verify that the sender is creator of the item.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### getItems
+
+**function head**
+
+    function getItems() view public returns(Item[] memory);
+
+* returns
+  * a list of all items.
+
+**description**
+
+This method returns a list of all items.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### getItemsByTerritory
+
+**function head**
+
+    function getItemsByTerritory(uint256 territory) view public returns(Item[] memory);
+
+* parameters
+  * territory: ID of a certain territory.
+
+* returns
+  * a list containing all items under the territory.
+
+**description**
+
+This method returns a list of all items under the given territory. contains territory(id of a certain territory).
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### votingItem
+
+**function head**
+
+    function votingItem(uint256 itemId, uint256 votingToken) public;
+
+* parameters
+  * itemId: ID of a certain item.
+  * votingToken token number of votes.
+
+**description**
+
+This method votes on an existing item and can specify the number of votes. contains itemId, and votingToken.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### getVotingInfo
+
+**function head**
+
+    function getVotingInfo() view public returns(ItemVotingInfo[] memory) ;
+
+* returns
+  * a list containing all item voting information.
+
+**description**
+
+This method returns voting information of all items and the number of voting for each item.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### stakeItem
+
+**function head**
+
+    function stakeItem(uint256 itemId, uint256 stakeToken) public;
+
+* parameters
+  * itemId: ID of a certain item.
+  * stakeToken: token number of the stake.
+
+**description**
+
+This method invests in an existing item and can specify the amount of investment. contains itemId and stakeToken.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### getStakeInfo
+
+**function head**
+
+    function getStakeInfo() view public returns(ItemStakeInfo[] memory);
+
+* returns
+  * a list containing all item stake information.
+
+**description**
+
+This method returns investment information of all items. contains the total number of tokens invested in each item.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### prepareReceiveTokens
+
+**function head**
+
+    function prepareReceiveTokens() public;
+
+**description**
+
+This method calculate and record the revenue that all investors can get in the current period. the revenue hasn't been sent.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### getReceiveInfo
+
+**function head**
+
+    function getReceiveInfo() view public returns(ReceiveInfo[] memory);
+
+* returns
+  * a list containing the receive information of all stakeholders.
+
+**description**
+
+This method returns investment information of all stakeholders. contains the revenue that has been received and revenue that can be extracted.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### withdraw
+
+**function head**
+
+    function withdraw() public;
+
+**description**
+
+This method allows the sender to extract the recorded revenue that should be collected at one time.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
