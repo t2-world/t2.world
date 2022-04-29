@@ -90,7 +90,6 @@ The contracts have two categories of methods: one is for the users, one is calle
 
 The methods in T2World are divided into public methods and contract methods. public method can be called by users for daily operations in T2 World. contract methods are the methods of different module that must be called by the platform management contract.
 
-T2 World 的methods 分为 public methods 和 contract methods. public methods 是可以由用户调用进行日常操作的方法. contract methods 是必须由平台管理合约进行调用的各个不同模块合约的方法.
 
 ## T2World Public Methods
 
@@ -98,7 +97,6 @@ The T2World Public Methods are for users.
 
 T2World is the platform contract of t2 world which contains all public methods.  users can use the methods of platform contract to participate in the content sharing and POA (proof of attention) journey of t2 world. for the DAO management, we let the platform contract calls the module contracts to manage various information and activities in t2 world.
 
-T2World是T2 World的平台合约. 包含了所有的公共方法. 用户使用该平台合约的方法参与到T2World的内容分享和POA之旅中. 为了DAO的管理, 由该平台合约调用其它各个模块对应的合约, 来实现T2 World中的各种信息和活动. 
 
 | CONTRACT | METHOD               | INTRODUCTION                                            | PARAMETERS                                                   | RETURNS                                                      |
 | -------- | -------------------- | ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
