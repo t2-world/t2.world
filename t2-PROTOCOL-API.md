@@ -115,6 +115,8 @@ T2World is the platform contract of t2 world which contains all public methods. 
 |          | prepareReceiveTokens | calculate the tokens than every stakeholders should get |                                                              |                                                              |
 |          | getReceiveInfo       | get the receive information of all stakeholders         |                                                              | a list containing the receive information of all stakeholders. |
 |          | withdraw             | withdraw the token to the caller                        |                                                              |                                                              |
+|          | getUserProfile       | get user profile information of the caller              |                                                              | user profile details                                         |
+|          | setUserEmail         | set email of the caller                                 | email: a email string                                        |                                                              |
 
 
 
@@ -148,6 +150,10 @@ As the contracts are called by T2World, not by users. the contract methods which
 | | prepareReceiveTokens   | calculate the tokens than every stakeholders should get |||
 | | getReceiveInfo         | get the receive information of all stakeholders         ||a list containing the receive information of all stakeholders.|
 | | withdraw               | withdraw the token to the caller                        |sender: wallet address of a user.||
+| User | setT2World | set the T2World Contract address in UserContract |t2world: address of T2World Contract.||
+|  | getT2World | get the T2World Contract address that had been set. ||address of T2World Contract that had been set.|
+|  | getUserProfile | get user profile details of the wallet |wallet: wallet address of t2world caller.|user profile details.|
+|  | setUserEmail | set email of the wallet |wallet: address of t2world caller.<br />email: email of t2world caller that will be set.||
 
 
 
@@ -535,7 +541,90 @@ Need to verify that the calling address of this method is T2World. author can se
 
 This method allows the sender to extract the recorded revenue that should be collected at one time. contains sender.
 
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract
+
+## UserContract
+
+This contract is for users in T2 World.
+
+Item Contract is an data contract used to record user data. T2World call this contract to get user profile and other operations about user.
+
+| METHOD         | INTRODUCTION                                        |
+| -------------- | --------------------------------------------------- |
+| setT2World     | set the T2World Contract address in UserContract.   |
+| getT2World     | get the T2World Contract address that had been set. |
+| getUserProfile | get user profile details of the wallet.             |
+| setUserEmail   | set email of the wallet.                            |
+
+### setT2World
+
+**function head**
+
+    function setT2World(address t2world) public onlyOwner;
+
+* parameters 
+  * t2world: address of the T2World contract.
+
+**description**
+
+This method set the T2World Contract address in UserContract.
+
+As the contract is called by owner, owner can set the address of T2World to this contract.
+
+### getT2World
+
+**function head**
+
+    function getT2World() public onlyOwner returns(address);
+
+* returns
+  * address of the T2World contract.
+
+**description**
+
+This method return the T2World Contract address that had been set in UserContract.
+
+As the contract is called by owner, owner can get the address of T2World to this contract.
+
+### getUserProfile
+
+**function head**
+
+    function getUserProfile(address wallet) public onlyT2World returns(User);
+
+* parameters
+  * wallet: caller address of T2World contract.
+
+* returns
+  * user profile details of the wallet.
+
+**description**
+
+This method return user profile details of the T2World Contract caller.
+
 As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+### setUserEmail
+
+**function head**
+
+    function setUserEmail(address wallet, string memory email) public onlyT2World;
+
+* parameters
+  * wallet: caller address of T2World contract.
+  * email: email that will be set.
+
+**description**
+
+This method set user emai of the T2World Contract caller.
+
+As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+Need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
 
 
 
@@ -562,6 +651,8 @@ T2 World合约是平台管理合约. 其他合约由该合约调用进行各种�
 | prepareReceiveTokens | calculate the tokens than every stakeholders should get |
 | getReceiveInfo       | get the receive information of all stakeholders         |
 | withdraw             | withdraw the token to the caller                        |
+| getUserProfile       | get user profile details of the caller.                 |
+| setUserEmail         | set email of the caller.                                |
 
 ### createPassport
 
@@ -822,6 +913,32 @@ Need to verify that the calling address of this method is T2World. author can se
 This method allows the sender to extract the recorded revenue that should be collected at one time.
 
 As the contract is called by T2World, the method need a sender(wallet address of creator) parameter. and need to verify that the calling address of this method is T2World. author can set the address of T2World to this contract.
+
+
+
+### getUserProfile
+
+**function head**
+
+    function getUserProfile() public returns(User);
+
+returns
+
+* user profile details of the caller.
+
+**description**
+
+This method will returns user profile details of the caller. if the isActive is false, the caller hasn't registried.
+
+### setUserEmail
+
+**function head**
+
+    function setUserEmail(string memory email) public;
+
+**description**
+
+This method allows the sender set his email information. and new user will register.
 
 
 
